@@ -2,7 +2,7 @@ export type WithPackageJsonArgs = {
   dependencies?: Array<string>;
   devDependencies?: Array<string>;
   peerDependencies?: Array<string>;
-  internalDependencies?: Array<string>;
+  otherDependencies?: Array<string>;
 };
 
 export type Author = {

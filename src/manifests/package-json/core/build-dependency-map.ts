@@ -7,7 +7,7 @@ import { PackageJson } from "../package-json.types";
  */
 export function buildDependencyMap(
   pkg: PackageJson,
-  internal: string[] = [],
+  internal?: string[],
 ): Record<string, string> {
   const map: Record<string, string> = {
     ...(pkg.dependencies ?? {}),
@@ -16,7 +16,7 @@ export function buildDependencyMap(
   };
 
   const internalDeps: Record<string, string> = {};
-  for (const dep of internal)
+  for (const dep of internal ?? [])
     if (map[dep] !== undefined) internalDeps[dep] = map[dep];
 
   return { ...map, ...internalDeps };

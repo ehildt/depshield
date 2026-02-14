@@ -1,7 +1,40 @@
+integrity: 5012b4c95e8428a1bf385a05fc417232da3914da306f004399db0477a201b373s
 target: README.md
-manifestFile: package.json
-generateBadgesPreview: true
+manifest: package.json
 generateBadgesJson: true
+generateBadgesPreview: true
+sections:
+  - name: dependencies
+    label: my-app-dependencies
+  - name: devDependencies
+    label: my-dev-dependencies
+badges:
+  style: flat-square
+  center: true
+  overrides:
+    chalk:
+      color: '#4CAF50'
+      labelColor: '#000000'
+      isError: false
+      namedLogo: npm
+      logoSvg: ''
+      logoColor: white
+      logoWidth: '40'
+      style: for-the-badge
+      cacheSeconds: 3600
+      link: https://www.npmjs.com/package/chalk
+    js-yaml:
+      color: '#4CAF50'
+      labelColor: '#000000'
+      isError: false
+      namedLogo: yaml
+      logoSvg: ''
+      logoColor: white
+      logoWidth: '40'
+      style: for-the-badge
+      cacheSeconds: 3600
+      link: https://github.com/nodeca/js-yaml
+highlights: null
 dependencies:
   - chalk
   - js-yaml
@@ -18,6 +51,5 @@ devDependencies:
   - rimraf
   - supertest
   - typescript
-peerDependencies: []
-internalDependencies: []
-signature: 444b06300e9f62e2ffe4b1b6b1606e52391e780b2b51e29170fa36fc2c3b6b02
+peerDependencies: null
+otherDependencies: null

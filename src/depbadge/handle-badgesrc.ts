@@ -3,10 +3,13 @@ import chalk from "chalk";
 import fs from "fs";
 
 import { BADGES_JSON, BADGES_MD, DEPBADGE } from "./constants";
-import { injectBadges } from "./inject-badges";
+import { injectBadgesIntoTarget } from "./inject-badges-into-target";
 import { Badgesrc, Data } from "./types";
 
-export function handleBadgesrc<T = any>(badgesrc: Badgesrc<T>, data: Data) {
+export function handleBadgesrc<T = any, U = any>(
+  badgesrc: Badgesrc<T>,
+  data: Data<U>,
+) {
   if (badgesrc.generateBadgesPreview) {
     fs.writeFileSync(BADGES_MD, data.badgesMD);
     console.log(
@@ -25,14 +28,17 @@ export function handleBadgesrc<T = any>(badgesrc: Badgesrc<T>, data: Data) {
     );
   }
 
-  if (badgesrc.signature !== data.signature) {
-    process.exit(
-      injectBadges(badgesrc, data.badgesMD, data.signature, badgesrc.target),
+  if (badgesrc.integrity !== data.integrity) {
+    injectBadgesIntoTarget(
+      badgesrc.target,
+      badgesrc,
+      data.badgesMD,
+      data.integrity,
     );
   } else {
     console.log(
       `${chalk.bold.yellowBright(DEPBADGE)} ${chalk.blueBright(
-        data.manifest.name,
+        badgesrc.manifest,
       )}: skip — dependencies unchanged.`,
     );
     process.exit(0);

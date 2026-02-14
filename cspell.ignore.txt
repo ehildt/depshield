@@ -169,6 +169,7 @@ safelisted
 Securityscorecard
 sendfile
 Servicestack
+shieldio
 sibiraj
 simping
 snapcode

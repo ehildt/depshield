@@ -25,7 +25,7 @@ export function findFile(
     const candidate = path.join(dir, filename);
     if (fs.existsSync(candidate)) return candidate;
     const parent = path.dirname(dir);
-    if (parent === dir) break; // reached root
+    if (parent === dir) break;
     dir = parent;
   }
   return null;

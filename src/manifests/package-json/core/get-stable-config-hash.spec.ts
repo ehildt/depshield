@@ -2,12 +2,12 @@ import { getStableConfigHash } from "./get-stable-config-hash";
 
 describe("getStableConfigHash", () => {
   const baseBadgesrc = {
-    manifestFile: "package.json" as const,
+    manifest: "package.json" as const,
     readmePath: "README.md",
     generateBadgesPreview: true,
     generateBadgesJson: true,
     target: "node",
-    signature: "abc123",
+    integrity: "abc123",
   };
 
   const baseManifest = {
@@ -24,8 +24,8 @@ describe("getStableConfigHash", () => {
     expect(hash).toMatch(/^[a-f0-9]{64}$/);
   });
 
-  it("should ignore the signature field when generating hash", () => {
-    const modifiedBadgesrc = { ...baseBadgesrc, signature: "different" };
+  it("should ignore the integrity field when generating hash", () => {
+    const modifiedBadgesrc = { ...baseBadgesrc, integrity: "different" };
     const hash1 = getStableConfigHash(baseBadgesrc, baseManifest);
     const hash2 = getStableConfigHash(modifiedBadgesrc, baseManifest);
     expect(hash1).toBe(hash2);

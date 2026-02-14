@@ -15,74 +15,74 @@ describe("writeBadgesrc", () => {
     jest.clearAllMocks();
   });
 
-  it("should add the signature to badgesrc object", () => {
+  it("should add the integrity to badgesrc object", () => {
     const badgesrc: Badgesrc = {
-      manifestFile: "package.json",
+      manifest: "package.json",
       readmePath: "README.md",
       generateBadgesPreview: true,
       generateBadgesJson: true,
       target: "node",
     };
-    const signature = "abc123";
+    const integrity = "abc123";
 
     mockFindFile.mockReturnValue("mocked-path.yml");
 
-    writeBadgesrc(badgesrc, signature);
+    writeBadgesrc(badgesrc, integrity);
 
-    expect(badgesrc.signature).toBe(signature);
+    expect(badgesrc.integrity).toBe(integrity);
   });
 
   it("should call findFile with the given path", () => {
     const badgesrc: Badgesrc = {
-      manifestFile: "package.json",
+      manifest: "package.json",
       readmePath: "README.md",
       generateBadgesPreview: true,
       generateBadgesJson: true,
     };
     const path = "custom.yml";
-    const signature = "sig";
+    const integrity = "sig";
 
     mockFindFile.mockReturnValue("mocked-path.yml");
 
-    writeBadgesrc(badgesrc, signature, path);
+    writeBadgesrc(badgesrc, integrity, path);
 
     expect(mockFindFile).toHaveBeenCalledWith(path);
   });
 
   it("should write YAML to the file with each top-level section separated", () => {
     const badgesrc: Badgesrc = {
-      manifestFile: "package.json",
+      manifest: "package.json",
       readmePath: "README.md",
       generateBadgesPreview: true,
       generateBadgesJson: true,
       target: "node",
     };
-    const signature = "sig";
+    const integrity = "sig";
 
     mockFindFile.mockReturnValue("/fake/path.yml");
 
-    writeBadgesrc(badgesrc, signature);
+    writeBadgesrc(badgesrc, integrity);
 
     const writeCall = (fs.writeFileSync as jest.Mock).mock.calls[0];
     const [filePath, content, encoding] = writeCall;
 
     expect(filePath).toBe("/fake/path.yml");
     expect(encoding).toBe("utf8");
-    expect(content).toContain("signature: sig");
+    expect(content).toContain("integrity: sig");
   });
 
   it("should not write if findFile returns null", () => {
     const badgesrc: Badgesrc = {
-      manifestFile: "package.json",
+      manifest: "package.json",
       readmePath: "README.md",
       generateBadgesPreview: true,
       generateBadgesJson: true,
     };
-    const signature = "sig";
+    const integrity = "sig";
 
     mockFindFile.mockReturnValue(null);
 
-    writeBadgesrc(badgesrc, signature);
+    writeBadgesrc(badgesrc, integrity);
 
     expect(fs.writeFileSync).not.toHaveBeenCalled();
   });

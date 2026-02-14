@@ -10,7 +10,7 @@ export function getStableConfigHash(
   manifest: PackageJson,
 ): string {
   const hash = crypto.createHash("sha256");
-  const brc = { ...badgesrc, signature: null };
+  const brc = { ...badgesrc, integrity: null };
   const { dependencies, devDependencies, peerDependencies } = manifest;
   const payload = `${yaml.dump(brc)} --- ${JSON.stringify({
     dependencies,

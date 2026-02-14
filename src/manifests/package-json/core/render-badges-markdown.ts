@@ -1,34 +1,55 @@
 import { WithPackageJsonArgs } from "../package-json.types";
 
-import { Badge, BadgeMap } from "@/depbadge/types";
+import { renderBadgeWithOverride } from "./render-badge-with-override";
 
-const REGEX = /[^a-zA-Z0-9]/g;
-const encodeMessage = (s: string) => encodeURIComponent(s.replace(/^\^/, "v"));
-const encodeLabel = (s: string) => encodeURIComponent(s.replace(REGEX, "_"));
-
-function renderBadge(badge: Badge): string {
-  return `![${badge.label}](https://img.shields.io/badge/${encodeLabel(
-    badge.label,
-  )}-${encodeMessage(badge.message)}-${encodeURIComponent(
-    badge.color,
-  )}.svg?style=for-the-badge)`;
-}
+import {
+  Badgesrc,
+  SectionName,
+  ShieldIOEndpointBadgeMap,
+} from "@/depbadge/types";
 
 export function renderBadgesMarkdown(
-  props: WithPackageJsonArgs,
-  badges: BadgeMap,
+  badgesrc: Badgesrc<WithPackageJsonArgs>,
+  badges: ShieldIOEndpointBadgeMap,
 ): string {
-  return Object.entries(props)
-    .filter(([, deps]) => deps.some((dep) => badges[dep]))
+  const args: WithPackageJsonArgs = {
+    dependencies: badgesrc.dependencies,
+    devDependencies: badgesrc.devDependencies,
+    peerDependencies: badgesrc.peerDependencies,
+    otherDependencies: badgesrc.otherDependencies,
+  };
+
+  const sectionMap = new Map(badgesrc.sections?.map((s) => [s.name, s]) ?? []);
+
+  const content = Object.entries(args)
     .map(([section, deps]) => {
-      const badgeLines = deps
-        .map((dep) => badges[dep])
-        .filter(Boolean)
-        .map(renderBadge);
-      if (badgeLines.length === 0) return "";
-      const title = `## ${section[0].toUpperCase()}${section.slice(1)}`;
-      return [title, ...badgeLines, ""].join("\n");
+      const badgeLines =
+        deps
+          ?.map((dep) => badges[dep])
+          .filter(Boolean)
+          .map((badge) => {
+            return renderBadgeWithOverride({
+              ...badge,
+              style: badge.style ?? badgesrc.badges?.style ?? "flat-square",
+            });
+          }) ?? [];
+
+      if (!badgeLines.length) return "";
+
+      const sectionConfig = sectionMap.get(section as SectionName);
+      const header =
+        badgesrc.sections && sectionConfig
+          ? `## ${sectionConfig.label ?? sectionConfig.name}`
+          : "";
+
+      return badgesrc.sections
+        ? [header, ...badgeLines].filter(Boolean).join("\n")
+        : badgeLines.filter(Boolean).join("\n");
     })
     .filter(Boolean)
-    .join("\n");
+    .join("\n\n");
+
+  return badgesrc.badges?.center
+    ? `<div align="center">\n\n${content}\n\n</div>`
+    : content;
 }

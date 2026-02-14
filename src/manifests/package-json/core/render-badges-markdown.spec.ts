@@ -2,7 +2,7 @@ import { WithPackageJsonArgs } from "../package-json.types";
 
 import { renderBadgesMarkdown } from "./render-badges-markdown";
 
-import { BadgeMap } from "@/depbadge/types";
+import { ShieldIOEndpointBadgeMap } from "@/depbadge/types";
 
 describe("renderBadgesMarkdown", () => {
   it("renders badges only for dependencies that have a version", () => {
@@ -10,10 +10,10 @@ describe("renderBadgesMarkdown", () => {
       dependencies: ["react", "vue"],
       devDependencies: ["jest"],
       peerDependencies: ["react-dom"],
-      internalDependencies: ["my-lib"],
+      otherDependencies: ["my-lib"],
     };
 
-    const badges: BadgeMap = {
+    const badges: ShieldIOEndpointBadgeMap = {
       react: {
         schemaVersion: 1,
         label: "react",
@@ -57,9 +57,9 @@ describe("renderBadgesMarkdown", () => {
       dependencies: [],
       devDependencies: [],
       peerDependencies: ["unknown"],
-      internalDependencies: [],
+      otherDependencies: [],
     };
-    const badges: BadgeMap = {}; // no badges
+    const badges: ShieldIOEndpointBadgeMap = {}; // no badges
 
     const md = renderBadgesMarkdown(sections, badges);
     expect(md).toBe(""); // completely empty

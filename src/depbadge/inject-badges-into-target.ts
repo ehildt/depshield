@@ -9,37 +9,38 @@ import { DEPBADGE, README_MD } from "./constants";
 import { findFile } from "./find-file";
 import { Badgesrc } from "./types";
 
-export function injectBadges(
+export function injectBadgesIntoTarget(
+  target = README_MD,
   badgesrc: Badgesrc<WithPackageJsonArgs>,
   renderedBadges: string,
-  signature: string,
-  target = README_MD,
+  integrity: string,
 ) {
   let fileContent;
   const fileAbsPath = findFile(target);
-  if (fileAbsPath) {
+  if (fileAbsPath && !badgesrc.generateBadgesPreview) {
     fileContent = fs.readFileSync(fileAbsPath, "utf8");
     fileContent = fileContent.replace(
-      /<!-- DEPBADGES_START -->[\s\S]*?<!-- DEPBADGES_END -->/,
-      `<!-- DEPBADGES_START -->\n${renderedBadges}\n<!-- DEPBADGES_END -->`,
+      /<!-- DEPBADGE:START -->[\s\S]*?<!-- DEPBADGE:END -->/,
+      `<!-- DEPBADGE:START -->\n${renderedBadges}\n<!-- DEPBADGE:END -->`,
     );
 
     fs.writeFileSync(target, fileContent, "utf8");
-
-    // why does the signature change? probably some sorting going on?
-    writeBadgesrc(badgesrc, signature);
+    writeBadgesrc(badgesrc, integrity);
     console.log(
       `${chalk.bold.yellowBright(DEPBADGE)} ${chalk.blueBright(
         target,
-      )}: updated`,
+      )}: updated - badgesrc/dependencies changed.`,
     );
-    return 0;
-  }
-
-  console.log(
-    `${chalk.bold.yellowBright(DEPBADGE)} ${chalk.redBright(
-      target,
-    )}: skip — file not found`,
-  );
-  return 1;
+  } else if (badgesrc.generateBadgesPreview)
+    console.warn(
+      `${chalk.bold.yellowBright(DEPBADGE)} ${chalk.redBright(
+        target,
+      )}: skipped — disable badge preview.`,
+    );
+  else
+    console.warn(
+      `${chalk.bold.yellowBright(DEPBADGE)} ${chalk.redBright(
+        target,
+      )}: skipped — file not found.`,
+    );
 }
