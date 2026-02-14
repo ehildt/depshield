@@ -1,6 +1,6 @@
 name: "DEPBADGE"
 author: "Eugen Hildt"
-description: "Generates badges.json and BADGES_README.md from badgesrc.yml"
+description: "Generates badges.json and BADGES_README.md from depbadgerc.yml"
 
 runs:
   using: "node24"

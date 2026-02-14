@@ -206,5 +206,4 @@ compose.yml
 *.compose.yml
 *.compose.*.yml
 BADGES.md
-.badgesrc.yml
-badges.json
+.depbadge

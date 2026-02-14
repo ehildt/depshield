@@ -8,15 +8,7 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: [
-      ".husky",
-      ".gitlab",
-      ".vscode",
-      ".json",
-      ".depcruise.mjs",
-      "dist",
-      "node_modules",
-    ],
+    ignores: [".husky", ".gitlab", ".vscode", ".json", ".depcruise.mjs", "dist", "node_modules"],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
@@ -42,7 +34,7 @@ export default [
       "prettier/prettier": [
         "error",
         {
-          printWidth: 80,
+          printWidth: 120,
           trailingComma: "all",
           bracketSpacing: true,
           usePrettierrc: true,

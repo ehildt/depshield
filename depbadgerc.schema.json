@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DepbadgeRC Schema",
+  "type": "object",
+  "properties": {
+    "integrity": { "type": "string" },
+    "target": { "enum": ["README.md"] },
+    "provider": { "enum": ["shieldio"] },
+    "manifest": { "enum": ["package.json"] },
+    "output": { 
+      "type": "string",
+      "description": "Comma-separated list like 'badges,preview'"
+    },
+    "badgeStyle": {
+      "type": "object",
+      "properties": {
+        "center": { "type": "boolean" },
+        "sectionHeader": { "type": "boolean" },
+        "style": { "type": "string" },
+        "cacheSeconds": { "type": "number" },
+        "variants": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "color": { "type": "string" },
+                "labelColor": { "type": "string" },
+                "isError": { "type": "boolean" },
+                "namedLogo": { "type": "string" },
+                "message": { "type": "string"  },
+                "logoSvg": { "type": "string" },
+                "logoColor": { "type": "string" },
+                "logoWidth": { "type": "string" },
+                "style": { "type": "string" },
+                "cacheSeconds": { "type": "number" },
+                "link": { "type": "string", "format": "uri" }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "source": { "type": "string" },
+              "label": { "type": "string" },
+              "packages": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "required": ["source", "packages"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "source": { "enum": ["github"] },
+              "label": { "type": "string" },
+              "artifact": {
+                "type": "object",
+                "properties": {
+                  "metric": { "enum": ["stars", "license"] },
+                  "user": { "type": "string" },
+                  "repo": { "type": "string" },
+                  "branch": { "type": ["string", "null"] }
+                },
+                "required": ["metric", "user", "repo"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["source", "artifact"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "source": { "enum": ["docker"] },
+              "label": { "type": "string" },
+              "artifact": {
+                "type": "object",
+                "properties": {
+                  "metric": { "enum": ["pulls", "stars", "v"] },
+                  "user": { "type": "string" },
+                  "image": { "type": "string" },
+                  "tag": { "type": ["string", "null"] }
+                },
+                "required": ["metric", "user", "image"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["source", "artifact"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "source": { "enum": ["codecov"] },
+              "label": { "type": "string" },
+              "artifact": {
+                "type": "object",
+                "properties": {
+                  "provider": { "type": "string" },
+                  "user": { "type": "string" },
+                  "repo": { "type": "string" },
+                  "branch": { "type": "string" },
+                  "flag": { "type": ["string", "null"] }
+                },
+                "required": ["provider", "user", "repo"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["source", "artifact"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": ["target", "provider", "manifest", "badgeStyle", "dependencies"],
+  "additionalProperties": false
+}

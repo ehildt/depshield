@@ -16,16 +16,13 @@ import path from "path";
  *   console.log("README.md not found");
  * }
  */
-export function findFile(
-  filename: string,
-  startDir: string = process.cwd(),
-): string | null {
+export function findFile(filename: string, startDir: string = process.cwd()): string | null {
   let dir = startDir;
   while (true) {
     const candidate = path.join(dir, filename);
     if (fs.existsSync(candidate)) return candidate;
     const parent = path.dirname(dir);
-    if (parent === dir) break; // reached root
+    if (parent === dir) break;
     dir = parent;
   }
   return null;

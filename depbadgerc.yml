@@ -1,0 +1,79 @@
+integrity: ee394a548d150d94ba13c026971bef4b3e268e3247ba62fbd38880fe9d9d5765
+target: README.md
+provider: shieldio
+manifest: package.json
+output: badges,preview
+
+badgeStyle:
+  center: true
+  sectionHeader: false
+  style: flat-square
+  cacheSeconds: 3600
+  variants:
+    Chalk:
+      color: '#4CAF50'
+      labelColor: '#000000'
+      isError: false
+      namedLogo: npm
+      logoSvg: ''
+      message: '' 
+      logoColor: white
+      logoWidth: '40'
+      style: for-the-badge
+      cacheSeconds: 3600
+      link: https://www.npmjs.com/package/chalk
+      
+dependencies:
+  - source: dependencies
+    label: optional
+    packages:
+      - chalk
+      - js-yaml
+  - source: internalDependencies
+    label: optional
+    packages:
+      - some_lib_1
+      - some_lib_2
+  - source: devDependencies
+    packages:
+      - depcheck
+      - dependency-cruiser
+      - dotenv-cli
+      - eslint
+      - husky
+      - jest
+      - jiti
+      - lint-staged
+      - npm-check-updates
+      - rimraf
+      - supertest
+      - typescript
+  - source: github
+    label: optional
+    artifact:
+      metric: stars
+      user: ehildt
+      repo: depbadge
+      branch: main
+  - source: github
+    label: optional
+    artifact:
+      metric: license
+      user: ehildt
+      repo: depbadge
+      branch: main
+  - source: docker
+    label: DEPBADGE
+    artifact:
+      metric: pulls
+      user: ehildt
+      image: myimage
+      tag: null
+  - source: codecov
+    label: optional
+    artifact:
+      provider: github
+      user: ehildt
+      repo: depbadge
+      branch: main
+      flag: c

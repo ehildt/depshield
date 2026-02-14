@@ -14,8 +14,8 @@ autodocs
 autoprefixer
 autoresize
 azuretools
+badgen
 BADGESMD
-badgesrc
 bgclr
 bitnami
 brcs
@@ -47,12 +47,14 @@ dccs
 DCCS
 depbadge
 DEPBADGE
+depbadgerc
 depbadges
 DEPBADGES
 depcheck
 depcruise
 depcruiserrc
 docgen
+dockerhub
 docpose
 dompurify
 dotenv
@@ -71,6 +73,7 @@ fieldname
 fieldtypes
 fontawesome
 genpose
+ghostwhite
 gitconfiglocal
 github
 gitlab
@@ -125,6 +128,8 @@ MQTT
 MSBR
 msbridge
 msgpackr
+myimage
+myrepo
 nestjs
 nginx
 ngrok
@@ -169,6 +174,7 @@ safelisted
 Securityscorecard
 sendfile
 Servicestack
+shieldio
 sibiraj
 simping
 snapcode
@@ -176,6 +182,7 @@ socketio
 SOCKETIO
 sonarjs
 sopts
+spacebadges
 spdx
 sropts
 supertest
