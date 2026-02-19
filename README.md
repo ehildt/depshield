@@ -50,7 +50,10 @@ These additional artifacts make it easy to integrate with Shields-based workflow
 </div>
 <!-- DEPBADGE:END -->
 
-<div align="right">
+<br>
+<br>
+
+<div align="center">
   <a href="mailto:eugen.hildt@gmail.com">EMAIL</a> —
   <a href="#">WIKI</a> —
   <a href="#">DONATE</a>
