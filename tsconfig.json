@@ -12,9 +12,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "noImplicitThis": true
   },
   "files": ["shims.d.ts"],
   "include": [

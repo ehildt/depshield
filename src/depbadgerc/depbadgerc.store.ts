@@ -1,7 +1,7 @@
+import { BadgeDependencyMap } from "../manifests/package-json/dependencies-to-badge-map";
 import { ManifestMethods } from "../manifests/package-json/manifest.store";
 import { DepbadgeManifest } from "../manifests/package-json/manifest.type";
-import { composeStaticStore } from "../store/create-store";
-import { Store } from "../store/store.types";
+import { composeStaticStore, Store } from "../store/create-store";
 
 import {
   BadgeArtifactMap,
@@ -21,8 +21,6 @@ import {
 } from "./depbadgerc.helpers";
 import { readDepbadgeRC } from "./depbadgerc.read";
 import { BadgeArtifact, DepbadgeRC, PackageDependency } from "./depbadgerc.type";
-
-import { BadgeDependencyMap } from "@/manifests/package-json/dependencies-to-badge-map";
 
 export type DepbadgeRCMethods = {
   outputMarkdownPreview(t: "BADGE" | "ARTIFACT", v: Record<string, string[]>): void;

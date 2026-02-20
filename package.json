@@ -1,7 +1,7 @@
 {
   "name": "@ehildt/depbadge",
   "description": "A github action that creates badges",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "email": "eugen.hildt@gmail.com",
@@ -64,7 +64,6 @@
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
     "ts-unused-exports": "^11.0.1",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.0"
   }

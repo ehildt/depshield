@@ -1,6 +1,5 @@
 import { PackageDependency } from "../../depbadgerc/depbadgerc.type";
-import { composeStaticStore } from "../../store/create-store";
-import { Store } from "../../store/store.types";
+import { composeStaticStore, Store } from "../../store/create-store";
 
 import { BadgeDependencyMap, dependenciesToBadgeMapHelper } from "./dependencies-to-badge-map";
 import { readManifest } from "./manifest.read";

@@ -3,15 +3,15 @@
 import crypto from "crypto";
 import fs from "fs";
 import yaml from "js-yaml";
+import { Store } from "src/store/create-store";
 
 import { BadgeArtifact, BadgeArtifactSource, DependenciesArtifacts } from "../depbadgerc/depbadgerc.type";
-import { hashStringToHsl } from "../shared/hash-string-to-hsl";
 import { BadgeDependencyMap } from "../manifests/package-json/dependencies-to-badge-map";
 import { ManifestMethods } from "../manifests/package-json/manifest.store";
 import { DepbadgeManifest } from "../manifests/package-json/manifest.type";
 import { README_MD } from "../shared/constants";
 import { findFile } from "../shared/find-file";
-import { Store } from "../store/store.types";
+import { hashStringToHsl } from "../shared/hash-string-to-hsl";
 
 import { DepbadgeRCMethods } from "./depbadgerc.store";
 import { BadgeStyle, BadgeVariant, DepbadgeRC, PackageDependency } from "./depbadgerc.type";
