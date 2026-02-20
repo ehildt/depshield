@@ -1,7 +1,8 @@
 import fs from "fs";
-import { useCtxCallback } from "src/store/ctx-store";
 
-import { BadgeVariantMap } from "./depbadgerc.helpers";
+import { useCtxCallback } from "../store/ctx-store";
+
+import { BadgeVariantMap } from "./materialize";
 
 export const outputShieldioBadgesJson = useCtxCallback((_, badgeMap: BadgeVariantMap, dir = ".depbadge"): void => {
   Object.entries(badgeMap).forEach(([section, files]) => {

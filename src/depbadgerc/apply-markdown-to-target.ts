@@ -1,6 +1,7 @@
 import fs from "fs";
-import { findFile } from "src/shared/find-file";
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
+
+import { findFile } from "../shared/find-file";
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
 import { Methods } from "./depbadgerc.store";
 import { DepbadgeRC } from "./depbadgerc.type";

@@ -1,31 +1,29 @@
 // ! depbadgerc should be agnostic in function and typ from any manifest file
 // one solution could be to pass a callback function and require a return type
-import { Store } from "src/store/create-store";
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
-
-import { BadgeArtifact, BadgeArtifactSource, DepbadgeRC } from "../depbadgerc/depbadgerc.type";
 import { ManifestMethods } from "../manifests/package-json/manifest.store";
 import { DepbadgeManifest } from "../manifests/package-json/manifest.type";
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
 import { Methods } from "./depbadgerc.store";
+import { BadgeArtifact, BadgeArtifactSource, DepbadgeRC } from "./depbadgerc.type";
 import { BadgeVariant } from "./depbadgerc.type";
 import { updateDepbadgeRCIntegrity } from "./depbadgerc.update";
 
 export type BadgeVariantMap = Record<string, Record<string, BadgeVariant[]>>;
 export type BadgeArtifactMap = Record<BadgeArtifactSource, BadgeArtifact[]>;
 
-export function canGenerate(args: string[] = [], v: string) {
-  return args?.includes(v) ?? false;
+export function canGenerate(x: string[] = [], y: string) {
+  return x?.includes(y) ?? false;
 }
 
-export function stateIntegrityChanged(arg: string | undefined, v: string) {
-  return arg ? !v.includes(arg) : true;
+export function stateIntegrityChanged(x: string | undefined, y: string) {
+  return x ? !y.includes(x) : true;
 }
 
-export const materializeHelper = useCtxCallback<CtxStore<DepbadgeRC, Methods>>(
-  (store, mf: Store<DepbadgeManifest, ManifestMethods>) => {
+export const materialize = useCtxCallback<CtxStore<DepbadgeRC, Methods>>(
+  (store, mf: CtxStore<DepbadgeManifest, ManifestMethods>): void => {
     const deps = store.getBadgeDependencies();
-    const depMap = mf.dependenciesToBadgeMap(deps);
+    const depMap = mf.dependenciesToBadgeMap(deps); // move to rcStore
     const integrity = store.computeStateIntegrity(deps, mf.version);
     const badgeMap = store.mapShieldIOEndpointBadges(depMap);
     const artifacts = store.getBadgeArtifacts();
@@ -33,14 +31,13 @@ export const materializeHelper = useCtxCallback<CtxStore<DepbadgeRC, Methods>>(
     const badgesMarkdown = store.mapBadgesToMarkdown(badgeMap);
     const artifactsMarkdown = store.mapArtifactsToMarkdown(artifactMap);
 
-    if (canGenerate("badges")) store.outputShieldioBadgesJson(badgeMap);
-    if (canGenerate("preview")) {
+    if (canGenerate(store.output, "badges")) store.outputShieldioBadgesJson(badgeMap);
+    if (canGenerate(store.output, "preview")) {
       store.outputMarkdownPreview("BADGE", badgesMarkdown);
       store.outputMarkdownPreview("ARTIFACT", artifactsMarkdown);
     }
 
-    // ! clean the helpers file
-    if (stateIntegrityChanged(integrity)) updateDepbadgeRCIntegrity(integrity);
+    if (stateIntegrityChanged(store.integrity, integrity)) updateDepbadgeRCIntegrity(integrity);
 
     const mdBadges = Object.entries(badgesMarkdown)
       .map(([section, badges]) => `${store.badgeStyle.sectionHeader ? `\n\n# ${section}` : ""}\n\n${badges.join("\n")}`)

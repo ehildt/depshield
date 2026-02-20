@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import yaml from "js-yaml";
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
+
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
 import { Methods } from "./depbadgerc.store";
 import { DepbadgeRC } from "./depbadgerc.type";

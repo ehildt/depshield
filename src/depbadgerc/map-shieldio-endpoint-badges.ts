@@ -1,10 +1,10 @@
-import { BadgeDependencyMap } from "src/manifests/package-json/dependencies-to-badge-map";
-import { hashStringToHsl } from "src/shared/hash-string-to-hsl";
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
+import { BadgeDependencyMap } from "../manifests/package-json/dependencies-to-badge-map";
+import { hashStringToHsl } from "../shared/hash-string-to-hsl";
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
-import { BadgeVariantMap } from "./depbadgerc.helpers";
 import { Methods } from "./depbadgerc.store";
 import { DepbadgeRC } from "./depbadgerc.type";
+import { BadgeVariantMap } from "./materialize";
 
 export const mapShieldIOEndpointBadges = useCtxCallback<CtxStore<DepbadgeRC, Methods>>(
   (store, depMap: BadgeDependencyMap): BadgeVariantMap => {

@@ -1,4 +1,4 @@
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
 import { Methods } from "./depbadgerc.store";
 import { DepbadgeRC, PackageDependency } from "./depbadgerc.type";

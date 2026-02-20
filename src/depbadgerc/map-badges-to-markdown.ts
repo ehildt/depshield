@@ -1,9 +1,9 @@
-import { hashStringToHsl } from "src/shared/hash-string-to-hsl";
-import { CtxStore, useCtxCallback } from "src/store/ctx-store";
+import { hashStringToHsl } from "../shared/hash-string-to-hsl";
+import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
-import { BadgeVariantMap } from "./depbadgerc.helpers";
 import { Methods } from "./depbadgerc.store";
 import { DepbadgeRC } from "./depbadgerc.type";
+import { BadgeVariantMap } from "./materialize";
 
 const REGEX = /[^a-zA-Z0-9]/g;
 const encodeMessage = (s: string) => encodeURIComponent(s.replace(/^\^/, "v"));
