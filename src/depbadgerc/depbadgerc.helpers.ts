@@ -5,7 +5,7 @@ import fs from "fs";
 import yaml from "js-yaml";
 
 import { BadgeArtifact, BadgeArtifactSource, DependenciesArtifacts } from "../depbadgerc/depbadgerc.type";
-import { hashStringToHsl } from "../manifests/package-json/core/hash-string-to-hsl";
+import { hashStringToHsl } from "../shared/hash-string-to-hsl";
 import { BadgeDependencyMap } from "../manifests/package-json/dependencies-to-badge-map";
 import { ManifestMethods } from "../manifests/package-json/manifest.store";
 import { DepbadgeManifest } from "../manifests/package-json/manifest.type";
