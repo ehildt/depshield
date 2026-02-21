@@ -14,6 +14,7 @@ export type BadgeVariant = {
 };
 
 export type BadgeStyle = {
+  theme: "dark" | "white";
   center?: boolean;
   sectionHeader?: boolean;
   style?: string;
@@ -83,4 +84,14 @@ export type DepbadgeRC = {
   output?: string[];
   badgeStyle: BadgeStyle;
   dependencies: DependenciesArtifacts;
+};
+
+// ------------------ Variant/Artifact Maps -----------
+export type BadgeVariantMap = Record<string, Record<string, BadgeVariant[]>>;
+export type BadgeArtifactMap = Record<BadgeArtifactSource, BadgeArtifact[]>;
+
+// ------------------ Manifest Contract ---------------
+export type DepbadgeRCManifestTemplateContract = {
+  getVersionFromManifest(): string;
+  dependenciesToBadgeMap(deps: PackageDependency[]): Record<string, Record<string, string>>;
 };

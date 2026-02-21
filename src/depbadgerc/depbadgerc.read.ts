@@ -14,7 +14,5 @@ import { DepbadgeRC } from "./depbadgerc.type";
 export function readDepbadgeRC(path = "depbadgerc.yml"): DepbadgeRC {
   const filePath = findFile(path);
   if (!filePath) throw new Error(`${path} not found`);
-  const cfg = yaml.load(fs.readFileSync(filePath, "utf8")) as any;
-  cfg.output = cfg.output = cfg.output?.split(",");
-  return cfg;
+  return yaml.load(fs.readFileSync(filePath, "utf8")) as any;
 }

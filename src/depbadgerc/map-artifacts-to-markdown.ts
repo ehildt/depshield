@@ -2,8 +2,7 @@ import { hashStringToHsl } from "../shared/hash-string-to-hsl";
 import { CtxStore, useCtxCallback } from "../store/ctx-store";
 
 import { Methods } from "./depbadgerc.store";
-import { BadgeArtifact, BadgeStyle, DepbadgeRC } from "./depbadgerc.type";
-import { BadgeArtifactMap } from "./materialize";
+import { BadgeArtifact, BadgeArtifactMap, BadgeStyle, DepbadgeRC } from "./depbadgerc.type";
 
 const REGEX = /[^a-zA-Z0-9]/g;
 const encodeLabel = (s: string) => encodeURIComponent(s?.replace(REGEX, "_"));
